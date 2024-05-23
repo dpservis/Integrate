@@ -2,7 +2,7 @@
 
 #include<utility>
 
-namespace _1D
+namespace Integrate1D
 {
 /**
  * A wrapper class for associating a lambda function with a size() function

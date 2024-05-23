@@ -2,7 +2,7 @@
 
 #include<cstddef>
 #include "./DiscretizedIntegratorWrapper.hpp"
-#include "../_1D/SimpsonRule.hpp"
+#include "../Integrate1D/SimpsonRule.hpp"
 
 namespace _2D {
 

@@ -7,7 +7,7 @@
 namespace _1D
 {
 /** @class
- * @brief A class that implements Simposon's (1/3) rule.
+ * @brief A class that implements Simpson's (1/3) rule.
  * @author C.D. Clark III
  */
 template<typename T, std::size_t NN = 0>

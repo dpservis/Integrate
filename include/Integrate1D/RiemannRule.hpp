@@ -2,10 +2,11 @@
 #include<cstddef>
 #include <type_traits>
 
-#include "./Utils.hpp"
+#include "./Detail.hpp"
 #include "./RandomAccessLambda.hpp"
 
-namespace _1D {
+namespace Integrate1D
+{
 
 /** @class 
   * @brief A class that implements Riemann sums.

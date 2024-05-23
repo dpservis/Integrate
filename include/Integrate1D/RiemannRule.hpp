@@ -22,15 +22,15 @@ class RiemannRule
      * Integrate a discretized function from the set of argument and function values.
      */
     template<typename X, typename Y>
-    auto operator()( const X &x, const Y &y, long ai = 0, long bi = -1 ) const -> decltype(libIntegrate::getSize(x),libIntegrate::getElement(x,0),libIntegrate::getElement(y,0),T())
+    auto operator()( const X &x, const Y &y, long ai = 0, long bi = -1 ) const -> decltype(integrate::getSize(x),integrate::getElement(x,0),integrate::getElement(y,0),T())
     {
       // we are using getSize and getElement here so we can support
       // containers that use methods other than .operator[](int) and .size()
       // for indexing and reporting the size.
       // 
       // for example, Eigen uses operator()(int)
-      using libIntegrate::getSize;
-      using libIntegrate::getElement;
+      using integrate::getSize;
+      using integrate::getElement;
       T sum = 0;
 
       auto N = getSize(x);
@@ -54,10 +54,10 @@ class RiemannRule
      * Integrate a discretized function assuming uniform spacing.
      */
     template<typename Y>
-    auto operator()( const Y &y, T dx = 1 ) const -> decltype(libIntegrate::getSize(y),dx*libIntegrate::getElement(y,0),T())
+    auto operator()( const Y &y, T dx = 1 ) const -> decltype(integrate::getSize(y),dx*integrate::getElement(y,0),T())
     {
-      using libIntegrate::getSize;
-      using libIntegrate::getElement;
+      using integrate::getSize;
+      using integrate::getElement;
       T sum = 0;
       for(decltype(getSize(y)) i = 0; i < getSize(y); i++)
         sum += getElement(y,i);
@@ -76,7 +76,7 @@ class RiemannRule
       T dx = (b-a)/N;
       return
       this->operator()(
-          _1D::RandomAccessLambda(
+          integrate1d::RandomAccessLambda(
             [&a,&dx](int i){return a + i*dx;},
             [&N](){return N+1;} // N here means number of intervals. In the discretized functions, it means the number of points.
             ),

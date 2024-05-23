@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Utils.hpp"
+#include "../IntOnly.hpp"
 
 /** @file Utils.hpp
   * @brief 
@@ -9,7 +9,7 @@
   */
 
 
-namespace libIntegrate {
+namespace integrate {
   namespace detail {
     template<typename C>
     auto getElement(const C& c, std::size_t i, std::size_t j, priority<1>) -> decltype(c.COULD_NOT_DETECT_METHOD_FOR_INDEXING_CONTAINER)

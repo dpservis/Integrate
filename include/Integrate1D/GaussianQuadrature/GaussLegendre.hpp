@@ -9,8 +9,8 @@
 #include<cstddef>
 #include<array>
 
-namespace _1D {
-namespace GQ {
+namespace integrate1d {
+namespace gq {
 
 
 namespace detail {

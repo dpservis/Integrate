@@ -27,4 +27,4 @@ RandomAccessLambdaObj<ElementLambda,SizeLambda> RandomAccessLambda(ElementLambda
   return {std::forward<ElementLambda>(e),std::forward<SizeLambda>(s)};
 }
 
-}  // namespace _1D
+}  // namespace integrate1d

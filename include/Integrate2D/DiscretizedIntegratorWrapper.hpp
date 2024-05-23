@@ -2,11 +2,11 @@
 
 #include<vector>
 
-#include "./Utils.hpp"
-#include "../_1D/RandomAccessLambda.hpp"
-#include "../_2D/RandomAccessLambda.hpp"
+#include "./Detail.hpp"
+#include "../integrate1d/RandomAccessLambda.hpp"
+#include "../integrate2d/RandomAccessLambda.hpp"
 
-namespace _2D {
+namespace integrate2d {
 
 /** @class 
   * @brief A class that does 2D integration on discretized functions using various rules.
@@ -32,10 +32,10 @@ class DiscretizedIntegratorWrapper
     DiscretizedIntegratorWrapper(Args&& ...args):integrate(std::forward<Args>(args)...) {}
 
     template<typename X, typename Y, typename F>
-    auto operator()( const X &x, const Y &y, const F &f ) const -> decltype(libIntegrate::getSize(x),libIntegrate::getSize(y),libIntegrate::getElement(x,0),libIntegrate::getElement(y,0),libIntegrate::getElement(f,0,0),DataType())
+    auto operator()( const X &x, const Y &y, const F &f ) const -> decltype(integrate::getSize(x),integrate::getSize(y),integrate::getElement(x,0),integrate::getElement(y,0),integrate::getElement(f,0,0),DataType())
     {
-      using libIntegrate::getSize;
-      using libIntegrate::getElement;
+      using integrate::getSize;
+      using integrate::getElement;
       std::vector<DataType> sums(getSize(x));
       for(std::size_t i = 0; i < sums.size(); ++i)
       {
@@ -45,15 +45,15 @@ class DiscretizedIntegratorWrapper
     }
 
     template<typename F>
-    auto operator()( const F &f, DataType dx, DataType dy ) const -> decltype(libIntegrate::getSizeX(f),libIntegrate::getSizeY(f),libIntegrate::getElement(f,0,0),DataType())
+    auto operator()( const F &f, DataType dx, DataType dy ) const -> decltype(integrate::getSizeX(f),integrate::getSizeY(f),integrate::getElement(f,0,0),DataType())
     {
-      using libIntegrate::getSizeX;
-      using libIntegrate::getSizeY;
-      using libIntegrate::getElement;
+      using integrate::getSizeX;
+      using integrate::getSizeY;
+      using integrate::getElement;
       std::vector<DataType> sums(getSizeX(f));
       for(std::size_t i = 0; i < sums.size(); ++i)
       {
-        sums[i] = integrate(  _1D::RandomAccessLambda( [&f,i](std::size_t j){return f[i][j];}, [&f](){return libIntegrate::getSizeY(f);}), dy);
+        sums[i] = integrate(  integrate1d::RandomAccessLambda( [&f,i](std::size_t j){return f[i][j];}, [&f](){return integrate::getSizeY(f);}), dy);
       }
       return integrate(sums,dx);
     }
@@ -66,8 +66,8 @@ class DiscretizedIntegratorWrapper
       DataType dx = (xb-xa)/xN;
       DataType dy = (yb-ya)/yN;
       return this->operator()(
-          _1D::RandomAccessLambda([&xa,&dx](int i){return xa + i*dx;},[&xN](){return xN+1;}),
-          _1D::RandomAccessLambda([&ya,&dy](int j){return ya + j*dy;},[&yN](){return yN+1;}),
+          integrate1d::RandomAccessLambda([&xa,&dx](int i){return xa + i*dx;},[&xN](){return xN+1;}),
+          integrate1d::RandomAccessLambda([&ya,&dy](int j){return ya + j*dy;},[&yN](){return yN+1;}),
           [&xa,&ya,&dx,&dy,&f](int i, int j){ return f(xa+i*dx,ya+j*dy); }
       );
     }

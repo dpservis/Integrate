@@ -8,16 +8,16 @@
 
 #include<cstddef>
 #include<array>
-#include "../../_1D/GaussianQuadratures/GaussLegendre.hpp"
+#include "../../integrate1d/GaussianQuadrature/GaussLegendre.hpp"
 
-namespace _2D {
-namespace GQ {
+namespace integrate2d {
+namespace gq {
 
 template<typename T, std::size_t Order>
 class GaussLegendreQuadrature
 {
   public:
-    _1D::GQ::GaussLegendreQuadrature<T,Order> _1dInt;
+    integrate1d::gq::GaussLegendreQuadrature<T,Order> _1dInt;
 
     GaussLegendreQuadrature() = default;
 

@@ -4,7 +4,7 @@
 
 #include "./Utils.hpp"
 
-namespace _1D
+namespace integrate1d
 {
 /** @class
  * @brief A class that implements Simpson's (1/3) rule.
@@ -36,10 +36,10 @@ class SimpsonRule
    * othersize the call is undefined behavior.
    */
   template<typename X, typename Y>
-  auto operator()( const X &x, const Y &y, long ai = 0, long bi = -1 ) const -> decltype(libIntegrate::getSize(x),libIntegrate::getElement(x,0),libIntegrate::getElement(y,0),T())
+  auto operator()( const X &x, const Y &y, long ai = 0, long bi = -1 ) const -> decltype(integrate::getSize(x),integrate::getElement(x,0),integrate::getElement(y,0),T())
   {
-    using libIntegrate::getSize;
-    using libIntegrate::getElement;
+    using integrate::getSize;
+    using integrate::getElement;
 
     T sum = 0;
 
@@ -117,10 +117,10 @@ class SimpsonRule
    * y must contain 3 or more elements, othersize the call is undefined behavior.
    */
   template<typename Y>
-  auto operator()( const Y &y, T dx = 1 ) const -> decltype(libIntegrate::getSize(y),dx*libIntegrate::getElement(y,0),T())
+  auto operator()( const Y &y, T dx = 1 ) const -> decltype(integrate::getSize(y),dx*integrate::getElement(y,0),T())
   {
-    using libIntegrate::getSize;
-    using libIntegrate::getElement;
+    using integrate::getSize;
+    using integrate::getElement;
     T sum = 0;
     decltype(getSize(y)) i;
 
@@ -190,4 +190,4 @@ T SimpsonRule<T, NN>::LagrangePolynomial(T x, T A, T B, T C) const
   return (x - A) * (x - B) / (C - A) / (C - B);
 }
 
-}  // namespace _1D
+}  // namespace integrate1d

@@ -1,7 +1,7 @@
 #pragma once
 
 /** @file Utils.hpp
-  * @brief A collection of utilities used by libIntegrate
+  * @brief A collection of utilities used by integrate
   * @author C.D. Clark III
   * @date 04/06/21
   */
@@ -10,7 +10,7 @@
 #include<type_traits>
 
 
-namespace libIntegrate
+namespace integrate
 {
   /**
    * A type that can *only* be implicitly converted to integral types.

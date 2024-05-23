@@ -2,20 +2,20 @@
 
 #include<cstddef>
 #include "./DiscretizedIntegratorWrapper.hpp"
-#include "../_1D/TrapezoidRule.hpp"
+#include "../integrate1d/TrapezoidRule.hpp"
 
-namespace _2D {
+namespace integrate2d {
 
 /** @class 
   * @brief A class that implements Trapezoid sums.
   * @author C.D. Clark III
   */
 template<typename T>
-class TrapezoidRule : public DiscretizedIntegratorWrapper<_1D::TrapezoidRule<T>>
+class TrapezoidRule : public DiscretizedIntegratorWrapper<integrate1d::TrapezoidRule<T>>
 { 
   public:
 
-    using BaseType = DiscretizedIntegratorWrapper<_1D::TrapezoidRule<T>>;
+    using BaseType = DiscretizedIntegratorWrapper<integrate1d::TrapezoidRule<T>>;
     using BaseType::operator();
 };
 

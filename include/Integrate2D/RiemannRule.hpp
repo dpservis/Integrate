@@ -2,20 +2,20 @@
 
 #include<cstddef>
 #include "./DiscretizedIntegratorWrapper.hpp"
-#include "../_1D/RiemannRule.hpp"
+#include "../integrate1d/RiemannRule.hpp"
 
-namespace _2D {
+namespace integrate2d {
 
 /** @class 
   * @brief A class that implements Riemann sums.
   * @author C.D. Clark III
   */
 template<typename T>
-class RiemannRule : public DiscretizedIntegratorWrapper<_1D::RiemannRule<T>>
+class RiemannRule : public DiscretizedIntegratorWrapper<integrate1d::RiemannRule<T>>
 { 
   public:
 
-    using BaseType = DiscretizedIntegratorWrapper<_1D::RiemannRule<T>>;
+    using BaseType = DiscretizedIntegratorWrapper<integrate1d::RiemannRule<T>>;
     using BaseType::operator();
 
 

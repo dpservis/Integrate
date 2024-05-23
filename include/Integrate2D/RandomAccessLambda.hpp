@@ -2,7 +2,7 @@
 
 #include<utility>
 
-namespace _2D
+namespace integrate2d
 {
 /**
  * A wrapper class for associating a lambda function with a size(int) function
@@ -27,4 +27,4 @@ RandomAccessLambdaObj<ElementLambda,SizeLambda> RandomAccessLambda(ElementLambda
   return {std::forward<ElementLambda>(e),std::forward<SizeLambda>(s)};
 }
 
-}  // namespace _2D
+}  // namespace integrate2d

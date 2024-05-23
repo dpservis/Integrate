@@ -2,9 +2,9 @@
 #include<cstddef>
 #include<type_traits>
 
-#include "./Utils.hpp"
+#include "./Detail.hpp"
 
-namespace _1D {
+namespace integrate1d {
 
 /** @class 
   * @brief A class that implements the trapezoid rule.
@@ -25,10 +25,10 @@ class TrapezoidRule
 
     // This version will integrate a set of discrete points
     template<typename X, typename Y>
-    auto operator()( const X &x, const Y &y, long ai = 0, long bi = -1 ) const -> decltype(libIntegrate::getSize(x),libIntegrate::getElement(x,0),libIntegrate::getElement(y,0),T())
+    auto operator()( const X &x, const Y &y, long ai = 0, long bi = -1 ) const -> decltype(integrate::getSize(x),integrate::getElement(x,0),integrate::getElement(y,0),T())
     {
-      using libIntegrate::getSize;
-      using libIntegrate::getElement;
+      using integrate::getSize;
+      using integrate::getElement;
       T sum = 0;
 
       auto N = getSize(x);
@@ -51,10 +51,10 @@ class TrapezoidRule
 
     // This version will integrate a set of discrete points that are equally spaced
     template<typename Y>
-    auto operator()( const Y &y, T dx = 1 ) const -> decltype(libIntegrate::getSize(y),dx*libIntegrate::getElement(y,0),T())
+    auto operator()( const Y &y, T dx = 1 ) const -> decltype(integrate::getSize(y),dx*integrate::getElement(y,0),T())
     {
-      using libIntegrate::getSize;
-      using libIntegrate::getElement;
+      using integrate::getSize;
+      using integrate::getElement;
       T sum = 0;
       for(decltype(getSize(y)) i = 0; i < getSize(y)-1; i++)
         sum += (getElement(y,i+1)+getElement(y,i));

@@ -3,9 +3,9 @@
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <libIntegrate/Utils.hpp>
-#include <libIntegrate/_1D/Utils.hpp>
-#include <libIntegrate/_2D/Utils.hpp>
+#include <IntOnly.hpp>
+#include <Integrate1D/Detail.hpp>
+#include <Integrate2D/Detail.hpp>
 using namespace Catch;
 
 struct A {
@@ -21,23 +21,23 @@ struct C {
 template<typename T>
 bool takeInt(const T& t)
 {
-  return takeInt(t, libIntegrate::priority<10>{});
+  return takeInt(t, integrate::priority<10>{});
 }
 template<typename T>
-bool takeInt(const T& t, libIntegrate::priority<1>)
+bool takeInt(const T& t, integrate::priority<1>)
 {
   return false;
 }
 template<typename T>
-auto takeInt(const T& t, libIntegrate::priority<2>)
-    -> decltype(t.method(libIntegrate::IntOnly{}), true)
+auto takeInt(const T& t, integrate::priority<2>)
+    -> decltype(t.method(integrate::IntOnly{}), true)
 {
   return true;
 }
 
 TEST_CASE("IntOnly Usage")
 {
-  using namespace libIntegrate;
+  using namespace integrate;
 
   CHECK(takeInt(A()));
   CHECK(takeInt(B()));
@@ -46,7 +46,7 @@ TEST_CASE("IntOnly Usage")
 
 TEST_CASE("1D getElment function")
 {
-  using namespace libIntegrate;
+  using namespace integrate;
   SECTION("std::vector<int>")
   {
     std::vector<int> v(10);
@@ -72,7 +72,7 @@ struct MyContainer {
 };
 TEST_CASE("1D getSize function")
 {
-  using namespace libIntegrate;
+  using namespace integrate;
   SECTION("std::vector<int>")
   {
     std::vector<int> v(10);
@@ -88,7 +88,7 @@ TEST_CASE("1D getSize function")
 
 TEST_CASE("2D getElment function")
 {
-  using namespace libIntegrate;
+  using namespace integrate;
   SECTION("std:vector of std::vector<double>")
   {
     std::vector<std::vector<double>> v(10);
@@ -121,7 +121,7 @@ struct libFieldFieldLike {
 
 TEST_CASE("2D getSize functions")
 {
-  using namespace libIntegrate;
+  using namespace integrate;
   SECTION("Eigen Matrix Like")
   {
     EigenMatrixLike a;

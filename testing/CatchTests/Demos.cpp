@@ -2,9 +2,9 @@
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <libIntegrate/_1D/GaussianQuadratures/GaussLegendre.hpp>
-#include <libIntegrate/_1D/RandomAccessLambda.hpp>
-#include <libIntegrate/_1D/RiemannRule.hpp>
+#include <Integrate1D/GaussianQuadrature/GaussLegendre.hpp>
+#include <Integrate1D/RandomAccessLambda.hpp>
+#include <Integrate1D/RiemannRule.hpp>
 using namespace Catch;
 
 // exponential probability distribution
@@ -18,7 +18,7 @@ TEST_CASE("Demos")
 {
   SECTION("Case 1 w/ weight function")
   {
-    _1D::GQ::GaussLegendreQuadrature<double, 16> integrate;
+    integrate1d::gq::GaussLegendreQuadrature<double, 16> integrate;
 
     CHECK(integrate(probability_density, 0, 10) == Approx(1));
     CHECK(integrate([](double x) { return x * probability_density(x); }, 0, 10) == Approx(1. / 2));
@@ -35,7 +35,7 @@ TEST_CASE("Demos")
       rho[i] = 2 * exp(-2 * x[i]);
     }
 
-    _1D::RiemannRule<double> integrate;
+    integrate1d::RiemannRule<double> integrate;
 
     CHECK(integrate(x, rho) == Approx(1).epsilon(0.1));
     CHECK(integrate(x, [&x, &rho](int i) { return x[i] * rho[i]; }) == Approx(1. / 2).epsilon(0.01));

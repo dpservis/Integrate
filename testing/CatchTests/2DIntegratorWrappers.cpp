@@ -3,20 +3,20 @@
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <libIntegrate/_1D/RiemannRule.hpp>
-#include <libIntegrate/_1D/SimpsonRule.hpp>
-#include <libIntegrate/_1D/TrapezoidRule.hpp>
-#include <libIntegrate/_2D/DiscretizedIntegratorWrapper.hpp>
-#include <libIntegrate/_2D/RiemannRule.hpp>
-#include <libIntegrate/_2D/SimpsonRule.hpp>
-#include <libIntegrate/_2D/TrapezoidRule.hpp>
+#include <Integrate1D/RiemannRule.hpp>
+#include <Integrate1D/SimpsonRule.hpp>
+#include <Integrate1D/TrapezoidRule.hpp>
+#include <Integrate2D/DiscretizedIntegratorWrapper.hpp>
+#include <Integrate2D/RiemannRule.hpp>
+#include <Integrate2D/SimpsonRule.hpp>
+#include <Integrate2D/TrapezoidRule.hpp>
 using namespace Catch;
 
 TEST_CASE("Test the 2D discretized integration wrapper")
 {
   SECTION("Simple Riemann sum")
   {
-    _2D::DiscretizedIntegratorWrapper<_1D::RiemannRule<double>> integrate;
+    integrate2d::DiscretizedIntegratorWrapper<integrate1d::RiemannRule<double>> integrate;
     std::vector<double>                                         x(3);
     std::vector<double>                                         y(4);
     std::vector<std::vector<double>>                            f(3);
@@ -65,26 +65,26 @@ TEST_CASE("Test the 2D discretized integration wrapper")
      */
     SECTION("Riemann")
     {
-      _2D::RiemannRule<double> integrate;
+      integrate2d::RiemannRule<double> integrate;
       CHECK(integrate(x, y, f) < 1);
       CHECK(integrate(x, y, f) == Approx(1).epsilon(0.1));
       CHECK(integrate(x, y, f) != Approx(1).epsilon(0.01));
     }
     SECTION("Trapezoid")
     {
-      _2D::TrapezoidRule<double> integrate;
+      integrate2d::TrapezoidRule<double> integrate;
       CHECK(integrate(x, y, f) < 1);
       CHECK(integrate(x, y, f) == Approx(1).epsilon(0.0001));
       CHECK(integrate(x, y, f) != Approx(1).epsilon(0.00001));
     }
     SECTION("Simpson")
     {
-      _2D::SimpsonRule<double> integrate;
+      integrate2d::SimpsonRule<double> integrate;
       CHECK(integrate(x, y, f) == Approx(1).epsilon(0.0000001));
     }
     SECTION("Simpson (Uniform)")
     {
-      _2D::SimpsonRule<double> integrate;
+      integrate2d::SimpsonRule<double> integrate;
       CHECK(integrate(f, dx, dy) == Approx(1).epsilon(0.0000001));
     }
   }

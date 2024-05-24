@@ -4,7 +4,7 @@
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <libIntegrate/_1D/SimpsonRule.hpp>
+#include <Integrate1D/SimpsonRule.hpp>
 using namespace Catch;
 
 namespace SimpsonRuleTests
@@ -20,7 +20,7 @@ double box_func(double x)
 
 TEST_CASE("Testing Simpson rule on linear functions.")
 {
-  _1D::SimpsonRule<double> integrate;
+  integrate1d::SimpsonRule<double> integrate;
   double                   I;
 
   I = integrate(linear_func, 2., 5., 1);
@@ -38,7 +38,7 @@ TEST_CASE("Testing Simpson rule on linear functions.")
 
 TEST_CASE("Testing Simpson rule on quadratic functions.")
 {
-  _1D::SimpsonRule<double> integrate;
+  integrate1d::SimpsonRule<double> integrate;
   double                   I;
 
   I = integrate([](double x) { return x * x + 2 * x + 3; }, 1., 10., 1);
@@ -52,7 +52,7 @@ TEST_CASE("Testing Simpson rule on quadratic functions.")
 
 TEST_CASE("Simpson rule on discretized functions.")
 {
-  _1D::SimpsonRule<double> integrate;
+  integrate1d::SimpsonRule<double> integrate;
   double                   I;
 
   SECTION("Simple 3 point data set")
@@ -163,7 +163,7 @@ TEST_CASE("Simpson rule on discretized functions.")
 
 TEST_CASE("Simpson rule benchmarks.", "[.][benchmarks]")
 {
-  _1D::SimpsonRule<double> integrate;
+  integrate1d::SimpsonRule<double> integrate;
   SECTION("Even vs. Odd Datasets")
   {
     std::vector<double> f1(5), f2(6), f3(201), f4(202);

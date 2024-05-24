@@ -2,8 +2,8 @@
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <libIntegrate/_1D/GaussianQuadratures/GaussLegendre.hpp>
-#include <libIntegrate/_2D/GaussianQuadratures/GaussLegendre.hpp>
+#include <Integrate1D/GaussianQuadrature/GaussLegendre.hpp>
+#include <Integrate2D/GaussianQuadrature/GaussLegendre.hpp>
 using namespace Catch;
 
 namespace GausssLegendreTests
@@ -11,7 +11,7 @@ namespace GausssLegendreTests
 
 TEST_CASE("Testing 1D GQ:8 rule on polynomials.")
 {
-  _1D::GQ::GaussLegendreQuadrature<double, 8> integrate;
+  integrate1d::gq::GaussLegendreQuadrature<double, 8> integrate;
   for(int N = 0; N < 8; N++) {
     auto f  = [&N](double x) { double sum = 0; for(int i = 0; i < N+1; i++){ sum = sum + std::pow(x,i); }; return sum; };
     auto fi = [&N](double x) { double sum = 0; for(int i = 0; i < N+1; i++){ sum = sum + std::pow(x,i+1)/(i+1); }; return sum; };
@@ -23,7 +23,7 @@ TEST_CASE("Testing 1D GQ:8 rule on polynomials.")
 
 TEST_CASE("Testing 1D GQ:16 rule on polynomials.")
 {
-  _1D::GQ::GaussLegendreQuadrature<double, 16> integrate;
+  integrate1d::gq::GaussLegendreQuadrature<double, 16> integrate;
   for(int N = 0; N < 16; N++) {
     auto f  = [&N](double x) { double sum = 0; for(int i = 0; i < N+1; i++){ sum = sum + std::pow(x,i); }; return sum; };
     auto fi = [&N](double x) { double sum = 0; for(int i = 0; i < N+1; i++){ sum = sum + std::pow(x,i+1)/(i+1); }; return sum; };
@@ -35,7 +35,7 @@ TEST_CASE("Testing 1D GQ:16 rule on polynomials.")
 
 TEST_CASE("Testing 1D GQ:32 rule on polynomials.")
 {
-  _1D::GQ::GaussLegendreQuadrature<double, 32> integrate;
+  integrate1d::gq::GaussLegendreQuadrature<double, 32> integrate;
   for(int N = 0; N < 32; N++) {
     auto f  = [&N](double x) { double sum = 0; for(int i = 0; i < N+1; i++){ sum = sum + std::pow(x,i); }; return sum; };
     auto fi = [&N](double x) { double sum = 0; for(int i = 0; i < N+1; i++){ sum = sum + std::pow(x,i+1)/(i+1); }; return sum; };
@@ -47,7 +47,7 @@ TEST_CASE("Testing 1D GQ:32 rule on polynomials.")
 
 TEST_CASE("Testing 1D GQ:64 rule on polynomials.")
 {
-  _1D::GQ::GaussLegendreQuadrature<double, 64> integrate;
+  integrate1d::gq::GaussLegendreQuadrature<double, 64> integrate;
   for(int N = 0; N < 64; N++) {
     auto f  = [&N](double x) { double sum = 0; for(int i = 0; i < N+1; i++){ sum = sum + std::pow(x,i); }; return sum; };
     auto fi = [&N](double x) { double sum = 0; for(int i = 0; i < N+1; i++){ sum = sum + std::pow(x,i+1)/(i+1); }; return sum; };
@@ -59,8 +59,8 @@ TEST_CASE("Testing 1D GQ:64 rule on polynomials.")
 
 TEST_CASE("Comparing 1D GQ:8 and GQ:64 rules on polynomials.")
 {
-  _1D::GQ::GaussLegendreQuadrature<double, 8>  integrate8;
-  _1D::GQ::GaussLegendreQuadrature<double, 64> integrate64;
+  integrate1d::gq::GaussLegendreQuadrature<double, 8>  integrate8;
+  integrate1d::gq::GaussLegendreQuadrature<double, 64> integrate64;
   // GQ order 8 should be *exact* up to 8th order polynomials.
   // but it's actually pretty darn close for even higher orders...
   for(int N = 0; N < 20; N++) {
@@ -73,7 +73,7 @@ TEST_CASE("Comparing 1D GQ:8 and GQ:64 rules on polynomials.")
 
 TEST_CASE("Testing 1D GQ:64 rule on trig functions.")
 {
-  _1D::GQ::GaussLegendreQuadrature<double, 64> integrate;
+  integrate1d::gq::GaussLegendreQuadrature<double, 64> integrate;
 
   auto f = [](double x) { return sin(x); };
   CHECK(integrate(f, 0., M_PI) == Approx(2));
@@ -83,7 +83,7 @@ TEST_CASE("Testing 1D GQ:64 rule on trig functions.")
 
 TEST_CASE("Testing 2D GQ:64 rule on simple linear function.")
 {
-  _2D::GQ::GaussLegendreQuadrature<double, 64> integrate;
+  integrate2d::gq::GaussLegendreQuadrature<double, 64> integrate;
   double                                       I;
 
   auto f  = [](double x, double y) { return 10 * x + 20 * y + 30; };
@@ -95,7 +95,7 @@ TEST_CASE("Testing 2D GQ:64 rule on simple linear function.")
 
 TEST_CASE("Testing 2D GQ:64 rule on 2-var polynomial function.")
 {
-  _2D::GQ::GaussLegendreQuadrature<double, 64> integrate;
+  integrate2d::gq::GaussLegendreQuadrature<double, 64> integrate;
 
   for(int N = 0; N < 64; N = N + 4) {
     auto f  = [&N](double x, double y) { double sum = 0;
@@ -115,7 +115,7 @@ TEST_CASE("Testing 2D GQ:64 rule on 2-var polynomial function.")
 
 TEST_CASE("Testing 2D GQ:64 rule on trig functions.")
 {
-  _2D::GQ::GaussLegendreQuadrature<double, 64> integrate;
+  integrate2d::gq::GaussLegendreQuadrature<double, 64> integrate;
 
   CHECK(integrate([](double x, double y) { return sin(x) * cos(y); },
                   0., M_PI,
@@ -126,7 +126,7 @@ TEST_CASE("Testing 2D GQ:64 rule on trig functions.")
 
 TEST_CASE("Testing 1D GQ on Blackbody Curve")
 {
-  _1D::GQ::GaussLegendreQuadrature<double, 64> integrate;
+  integrate1d::gq::GaussLegendreQuadrature<double, 64> integrate;
   auto                                         f = [](double x) {
     double h = 6.62607004e-34;
     double c = 299792458;

@@ -1,6 +1,6 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <libIntegrate/Utils.hpp>
+#include <Utils.hpp>
 
 using namespace Catch;
 struct A {
@@ -16,22 +16,22 @@ struct C {
 template<typename T>
 bool takeInt(const T& t)
 {
-  return takeInt(t, libIntegrate::priority<10>{});
+  return takeInt(t, integrate::priority<10>{});
 }
 template<typename T>
-bool takeInt(const T& t, libIntegrate::priority<1>)
+bool takeInt(const T& t, integrate::priority<1>)
 {
   return false;
 }
 template<typename T>
-auto takeInt(const T& t, libIntegrate::priority<2>) -> decltype(t.method(libIntegrate::IntOnly{}), true)
+auto takeInt(const T& t, integrate::priority<2>) -> decltype(t.method(integrate::IntOnly{}), true)
 {
   return true;
 }
 
 TEST_CASE("Developement tests")
 {
-  using namespace libIntegrate;
+  using namespace integrate;
 
   CHECK(takeInt(A()));
   CHECK(takeInt(B()));

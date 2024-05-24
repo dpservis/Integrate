@@ -6,8 +6,8 @@
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <libIntegrate/_1D/RiemannRule.hpp>
-#include <libIntegrate/_2D/RiemannRule.hpp>
+#include <Integrate1D/RiemannRule.hpp>
+#include <Integrate2D/RiemannRule.hpp>
 using namespace Catch;
 
 namespace RiemannRuleTests
@@ -24,7 +24,7 @@ double box_func(double x)
 
 TEST_CASE("Testing 1D Riemann rule on linear functions.")
 {
-  _1D::RiemannRule<double> integrate;
+  integrate1d::RiemannRule<double> integrate;
   double                   I;
 
   auto f = [](double x) { return 2 * x + 3; };
@@ -34,7 +34,7 @@ TEST_CASE("Testing 1D Riemann rule on linear functions.")
 
 TEST_CASE("Testing 1D Riemann rule on box functions.")
 {
-  _1D::RiemannRule<double> integrate;
+  integrate1d::RiemannRule<double> integrate;
   double                   I;
 
   I = integrate(box_func, 0., 10., 1);
@@ -55,7 +55,7 @@ TEST_CASE("Testing 1D Riemann rule on box functions.")
 
 TEST_CASE("Testing 1D Riemann rule on discrete set.")
 {
-  _1D::RiemannRule<double> integrate;
+  integrate1d::RiemannRule<double> integrate;
   double                   I;
 
   std::vector<double> x(3), y(3);
@@ -107,7 +107,7 @@ TEST_CASE("Testing 1D Riemann rule on discrete set.")
 
 TEST_CASE("2D Riemann Rule")
 {
-  _2D::RiemannRule<double> integrate;
+  integrate2d::RiemannRule<double> integrate;
   double                   I;
 
   SECTION("integrating linear function")
@@ -130,15 +130,15 @@ TEST_CASE("2D Riemann Rule")
 
 TEST_CASE("Testing 1D Riemann rule with static interval number.")
 {
-  _1D::RiemannRule<double, 10> int1;
-  _1D::RiemannRule<double>     int2;
+  integrate1d::RiemannRule<double, 10> int1;
+  integrate1d::RiemannRule<double>     int2;
   auto                         f = [](double x) { return 2 * x + 3; };
   REQUIRE(int1(f, 2, 5) == Approx(int2(f, 2, 5, 10)));
 }
 
 TEST_CASE("Riemann Benchmarks", "[.][bencharmks]")
 {
-  _2D::RiemannRule<double> integrate;
+  integrate2d::RiemannRule<double> integrate;
 
   auto f = [](double x, double y) { return sin(x) * sin(y); };
 
@@ -159,7 +159,7 @@ TEST_CASE("1D Riemann rule with Algorithms.")
     y[i] = i + 1;
   }
 
-  _1D::RiemannRule<double> integrate;
+  integrate1d::RiemannRule<double> integrate;
   double                   I;
 
   I = integrate(x, y);

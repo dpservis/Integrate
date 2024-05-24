@@ -5,7 +5,7 @@
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <libIntegrate/_1D/RiemannRule.hpp>
+#include <Integrate/Integrate1D/RiemannRule.hpp>
 using namespace boost::units;
 using namespace boost::units::si;
 using namespace Catch;
@@ -15,7 +15,7 @@ namespace BoostUnitsTests
 
 TEST_CASE("Testing Riemann rule with boost units.")
 {
-  _1D::RiemannRule<quantity<energy>> integrate;
+  Integrate1D::RiemannRule<quantity<energy>> integrate;
   quantity<energy>                   I;
 
   std::vector<quantity<length>> x(3);

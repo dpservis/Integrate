@@ -7,11 +7,11 @@
   */
 
 
-#include "./Integrate1D/RiemannRule.hpp"
-#include "./Integrate1D/TrapezoidRule.hpp"
-#include "./Integrate1D/SimpsonRule.hpp"
-#include "./Integrate1D/GaussianQuadrature/GaussLegendre.hpp"
-#include "./Integrate1D/RandomAccessLambda.hpp"
+#include "./Integrate1d/RiemannRule.hpp"
+#include "./Integrate1d/TrapezoidRule.hpp"
+#include "./Integrate1d/SimpsonRule.hpp"
+#include "./Integrate1d/GaussianQuadrature/GaussLegendre.hpp"
+#include "./Integrate1d/RandomAccessLambda.hpp"
 
 
 #include "./Integrate2D/RiemannRule.hpp"

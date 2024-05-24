@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <type_traits>
 
-#include "./Utils.hpp"
+#include "./Detail.hpp"
 
 namespace integrate1d
 {

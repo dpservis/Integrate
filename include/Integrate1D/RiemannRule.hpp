@@ -5,7 +5,7 @@
 #include "./Detail.hpp"
 #include "./RandomAccessLambda.hpp"
 
-namespace Integrate1D
+namespace integrate1d
 {
 
 /** @class 

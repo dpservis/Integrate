@@ -1,6 +1,6 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <Utils.hpp>
+#include <IntOnly.hpp>
 
 using namespace Catch;
 struct A {

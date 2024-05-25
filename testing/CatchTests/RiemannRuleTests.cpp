@@ -1,5 +1,6 @@
-#include <algorithm>
+#define _USE_MATH_DEFINES
 #include <cmath>
+#include <algorithm>
 #include <iostream>
 #include <numeric>
 

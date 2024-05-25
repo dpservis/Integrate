@@ -50,10 +50,107 @@ TEST_CASE("Testing Simpson rule on quadratic functions.")
                     1 * 1 - 3 * 1));
 }
 
-TEST_CASE("Simpson rule on discretized functions.")
+struct testpoint
+{
+  double x;
+  double y;
+};
+
+TEST_CASE("Simpson rule on discretized functions with single array.")
 {
   integrate1d::SimpsonRule<double> integrate;
   double                   I;
+
+  SECTION("Simple 3 point data set")
+  {
+      std::vector<testpoint> x(3);
+    x[0].x = 1;
+    x[1].x = 3;
+    x[2].x = 10;
+
+    for(std::size_t i = 0; i < x.size(); ++i)
+      x[i].y = x[i].x * x[i].x + 2 * x[i].x + 3;
+
+    I = integrate(x);
+    CHECK(I == Approx(10 * 10 * 10 / 3. + 10 * 10 + 3 * 10 - 1 * 1 * 1 / 3. -
+                      1 * 1 - 3 * 1));
+  }
+
+  SECTION("4 point data set")
+  {
+    // Simpson's rule will use three points at a time. If the data sent in is
+    // not odd, the last piece needs to be handed correctly
+    std::vector<testpoint> x(4);
+    x[0].x = 1;
+    x[1].x = 3;
+    x[2].x = 8;
+    x[3].x = 10;
+
+    for(std::size_t i = 0; i < x.size(); ++i)
+      x[i].y = x[i].x * x[i].x + 2 * x[i].x + 3;
+
+    I = integrate(x);
+    CHECK(I == Approx(10 * 10 * 10 / 3. + 10 * 10 + 3 * 10 - 1 * 1 * 1 / 3. -
+                      1 * 1 - 3 * 1));
+  }
+
+  SECTION("5 point data set")
+  {
+    std::vector<testpoint> x(5);
+    x[0].x = 1;
+    x[1].x = 3;
+    x[2].x = 8;
+    x[3].x = 9;
+    x[4].x = 10;
+
+    for(std::size_t i = 0; i < x.size(); ++i)
+      x[i].y = x[i].x * x[i].x + 2 * x[i].x + 3;
+
+    I = integrate(x);
+    CHECK(I == Approx(10 * 10 * 10 / 3. + 10 * 10 + 3 * 10 - 1 * 1 * 1 / 3. -
+                      1 * 1 - 3 * 1));
+
+    I = integrate(x, 0, 2);
+    CHECK(I == Approx(8 * 8 * 8 / 3. + 8 * 8 + 3 * 8 - 1 * 1 * 1 / 3. -
+                      1 * 1 - 3 * 1));
+
+    I = integrate(x, 2, 4);
+    CHECK(I == Approx(10 * 10 * 10 / 3. + 10 * 10 + 3 * 10 - 8 * 8 * 8 / 3. -
+                      8 * 8 - 3 * 8));
+
+    I = integrate(x, 1, -2);
+    CHECK(I == Approx(9 * 9 * 9 / 3. + 9 * 9 + 3 * 9 - 3 * 3 * 3 / 3. -
+                      3 * 3 - 3 * 3));
+  }
+
+  SECTION("several point data set")
+  {
+    std::vector<testpoint> x(10);
+    x[0].x = 7.1;
+    x[1].x = 10.;
+    x[2].x = 20.27;
+    x[3].x = 30.2;
+    x[4].x = 39.8;
+    x[5].x = 44.1;
+    x[6].x = 50.4;
+    x[7].x = 55.2;
+    x[8].x = 65.9;
+    x[9].x = 78.3;
+
+    for(std::size_t i = 0; i < x.size(); ++i)
+      x[i].y = 2.3*x[i].x * x[i].x + 5.6 * x[i].x + 98.2;
+
+    I = integrate(x);
+    CHECK(I == Approx(3.917801122666667e5));
+  }
+
+}
+
+
+TEST_CASE("Simpson rule on discretized functions.")
+{
+  integrate1d::SimpsonRule<double> integrate;
+  double                           I;
 
   SECTION("Simple 3 point data set")
   {

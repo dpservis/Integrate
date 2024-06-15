@@ -8,10 +8,10 @@ namespace integrate1d
 {
 template <typename T>
 concept VectorLike = requires(T x, size_t i) {
-    
+  
     {
         x[i]
-    } -> std::convertible_to<double>;
+    } -> std::same_as<double&>;
     {
         x.size()
     } -> std::convertible_to<size_t>;
@@ -228,6 +228,8 @@ public:
       auto y1 = getElement(x,i).y();
       auto y2 = getElement(x,i+1).y();
       auto y3 = getElement(x,i+2).y();
+
+      // Test if x1 and x2 are the same
       T m = (x1 + x3)/2;
       T ym = y1*LagrangePolynomial(m, x2, x3, x1)
            + y2*LagrangePolynomial(m, x1, x3, x2)
@@ -422,7 +424,11 @@ T SimpsonRule<T, NN>::operator()(F f, T a, T b) const
 template <typename T, std::size_t NN>
 T SimpsonRule<T, NN>::LagrangePolynomial(T x, T A, T B, T C) const
 {
-    return (x - A) * (x - B) / (C - A) / (C - B);
+    /// test
+    auto coeff1 = (C - A);
+    auto coeff2 = (C - B);
+
+    return (x - A) * (x - B) / coeff1 / coeff2;
 }
 
 } // namespace integrate1d

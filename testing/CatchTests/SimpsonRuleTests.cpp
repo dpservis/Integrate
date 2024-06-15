@@ -1,5 +1,6 @@
 #include <iostream>
 #include <numeric>
+#include <dlib/geometry.h>
 
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <catch2/catch_approx.hpp>
@@ -63,6 +64,12 @@ TEST_CASE("Simpson rule on discretized functions with single array.")
 
   SECTION("Simple 3 point data set")
   {
+      CHECK(std::is_convertible<testpoint, double>::value==false);
+      CHECK(std::is_convertible<dlib::vector<double, 2>, double>::value == true);
+      CHECK(std::is_same<dlib::vector<double, 2>, double>::value == false);
+      CHECK(std::is_convertible<std::vector<double>, double>::value == false);
+      CHECK(std::is_convertible<double[], double>::value == false);
+
       std::vector<testpoint> x(3);
     x[0].x = 1;
     x[1].x = 3;
